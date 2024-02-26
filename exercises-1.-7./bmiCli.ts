@@ -1,7 +1,7 @@
 import { calculateBmi } from "./bmiCalculator";
 import { areNumbers } from "./utils";
 
-const [_0, _1, height, mass] = process.argv;
+const [height, mass] = process.argv.slice(2);
 
 if (!areNumbers([height, mass])) {
   console.log("Invalid input");

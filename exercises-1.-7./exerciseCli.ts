@@ -1,7 +1,7 @@
 import { calculateExercises } from "./exerciseCalculator";
 import { areNumbers } from "./utils";
 
-const [_0, _1, target, ...hours] = process.argv;
+const [target, ...hours] = process.argv.slice(2);
 
 if (!areNumbers([target, ...hours])) {
   console.log("Invalid input");
