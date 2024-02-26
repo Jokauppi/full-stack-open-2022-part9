@@ -1,3 +1,5 @@
+import { areNumbers } from "./utils";
+
 const Ratings = {
   1: "Failed",
   2: "Good enough",
@@ -29,4 +31,16 @@ const calculateExercises = (hours: number[], target: number): Result => {
   };
 };
 
-console.dir(calculateExercises([3, 0, 2, 4.5, 0, 3, 1], 2));
+const [_0, _1, target, ...hours] = process.argv;
+
+if (!areNumbers([target, ...hours])) {
+  console.log("Invalid input");
+  process.exit(0);
+}
+
+console.dir(
+  calculateExercises(
+    hours.map((time) => Number(time)),
+    Number(target)
+  )
+);

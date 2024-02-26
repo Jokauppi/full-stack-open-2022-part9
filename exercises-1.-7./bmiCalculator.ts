@@ -1,3 +1,5 @@
+import { areNumbers } from "./utils";
+
 const messages: [number, string][] = [
   [16.0, "Underweight (Severe thinness)"],
   [17.0, "Underweight (Moderate thinness)"],
@@ -17,4 +19,11 @@ const calculateBmi = (height: number, mass: number) => {
   }
 };
 
-console.log(calculateBmi(180, 74));
+const [_0, _1, height, mass] = process.argv;
+
+if (!areNumbers([height, mass])) {
+  console.log("Invalid input");
+  process.exit(0);
+}
+
+console.log(calculateBmi(Number(height), Number(mass)));
