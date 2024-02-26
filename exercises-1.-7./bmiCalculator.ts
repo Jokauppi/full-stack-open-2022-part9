@@ -17,6 +17,8 @@ const calculateBmi = (height: number, mass: number) => {
   for (const category of messages) {
     if (bmi < category[0]) return category[1];
   }
+
+  return "Something went wrong";
 };
 
 const [_0, _1, height, mass] = process.argv;
