@@ -1,5 +1,3 @@
-import { areNumbers } from "./utils";
-
 const messages: [number, string][] = [
   [16.0, "Underweight (Severe thinness)"],
   [17.0, "Underweight (Moderate thinness)"],
@@ -11,21 +9,12 @@ const messages: [number, string][] = [
   [Infinity, "Obese (Class III)"],
 ];
 
-const calculateBmi = (height: number, mass: number) => {
+export const calculateBmi = (height: number, mass: number) => {
   const bmi = mass / (height / 100) ** 2;
 
   for (const category of messages) {
     if (bmi < category[0]) return category[1];
   }
 
-  return "Something went wrong";
+  throw Error();
 };
-
-const [_0, _1, height, mass] = process.argv;
-
-if (!areNumbers([height, mass])) {
-  console.log("Invalid input");
-  process.exit(0);
-}
-
-console.log(calculateBmi(Number(height), Number(mass)));

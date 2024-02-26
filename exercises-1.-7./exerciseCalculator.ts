@@ -1,5 +1,3 @@
-import { areNumbers } from "./utils";
-
 const Ratings = {
   1: "Failed",
   2: "Good enough",
@@ -16,7 +14,7 @@ interface Result {
   average: number;
 }
 
-const calculateExercises = (hours: number[], target: number): Result => {
+export const calculateExercises = (hours: number[], target: number): Result => {
   const average = hours.reduce((time, acc) => acc + time, 0) / hours.length;
   const rating = average / target < 0.5 ? 1 : average / target < 1 ? 2 : 3;
 
@@ -30,17 +28,3 @@ const calculateExercises = (hours: number[], target: number): Result => {
     average,
   };
 };
-
-const [_0, _1, target, ...hours] = process.argv;
-
-if (!areNumbers([target, ...hours])) {
-  console.log("Invalid input");
-  process.exit(0);
-}
-
-console.dir(
-  calculateExercises(
-    hours.map((time) => Number(time)),
-    Number(target)
-  )
-);
