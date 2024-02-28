@@ -1,11 +1,10 @@
 import express from "express";
+import router from "./routes/routes";
 const app = express();
 app.use(express.json());
 
-app.get("/ping", (_req, res) => {
-  res.send("pong");
-});
+app.use("/api", router);
 
-const PORT = 3000;
+const PORT = 3001;
 
 app.listen(PORT, () => {});
