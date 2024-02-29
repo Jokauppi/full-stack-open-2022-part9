@@ -1,18 +1,20 @@
 import express from "express";
-import data, { Patient } from "../data/patients";
+import { addPatient, getPatients, validatePatient } from "../services/patients";
 
 const patientsRouter = express.Router();
 
-const stripSsn = (
-  data: Patient[]
-): (Omit<Patient, "ssn"> & Partial<{ ssn: never }>)[] =>
-  data.map((patient: Patient) => ({
-    ...patient,
-    ssn: undefined,
-  }));
-
 patientsRouter.get("/", (_req, res) => {
-  res.json(stripSsn(data));
+  res.json(getPatients());
+});
+
+patientsRouter.post("/", (req, res) => {
+  try {
+    const patient = validatePatient(req.body);
+    const addedPatient = addPatient(patient);
+    res.json(addedPatient);
+  } catch (error: unknown) {
+    res.status(400).send((error as Error)["message"]);
+  }
 });
 
 export default patientsRouter;
