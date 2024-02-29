@@ -23,7 +23,7 @@ export const validatePatient = (patientData: unknown) => {
   };
 
   Object.entries(validated).forEach(([key, value]) => {
-    if (value === "") throw new Error(`Field ${key} is empty`);
+    if (value.toString() === "") throw new Error(`Field ${key} is empty`);
   });
 
   return validated;
