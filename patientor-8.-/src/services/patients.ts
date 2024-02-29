@@ -1,6 +1,16 @@
 import { v1 as uuid } from "uuid";
-import data, { Patient } from "../data/patients";
+import data, { Gender, Patient } from "../data/patients";
 import { validate } from "../utils/objectUtils";
+import { isString } from "../utils/stringUtils";
+
+export const isGender = (value: unknown): value is Gender => {
+  return (
+    isString(value) &&
+    Object.values(Gender)
+      .map((v) => v.toString())
+      .includes(value)
+  );
+};
 
 export const validatePatient = (patientData: unknown) => {
   const patient = validate(patientData);
@@ -8,12 +18,14 @@ export const validatePatient = (patientData: unknown) => {
     name: patient.string("name"),
     dateOfBirth: patient.string("dateOfBirth"),
     ssn: patient.string("ssn"),
-    gender: patient.string("gender"),
+    gender: patient.custom("gender", isGender),
     occupation: patient.string("occupation"),
   };
+
   Object.entries(validated).forEach(([key, value]) => {
     if (value === "") throw new Error(`Field ${key} is empty`);
   });
+
   return validated;
 };
 
